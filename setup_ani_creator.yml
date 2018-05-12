@@ -8,6 +8,10 @@
       - tree
       - mc
     bucket_name: "203494-bucket"
+    python_dependencies:
+      - boto3
+      - pytest
+      - flask
   tasks:
     - name: "Install os packages"
       yum:
@@ -26,6 +30,11 @@
 
     - raw: git config --global user.name "kbartosz"
     - raw: git config --global user.email "krzysztofbartosz12@gmail.com"
+    - pip:
+        name: "{{ item }}"
+      with_items: "{{ python_dependencies }}"
+      executable: pip3.6
+      become: yes
 
 
 
